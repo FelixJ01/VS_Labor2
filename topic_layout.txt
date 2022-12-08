@@ -1,0 +1,29 @@
+TopicLevel:
+
+home/
+    /eg/
+        /window/
+                /1
+                /2
+        /thermos
+        /jalousi
+        /light
+    /og/
+        /window/
+                /1
+                /2
+        /thermos
+        /jalousi
+        /light
+
+Wertebereiche:
+Fenster: True/False
+Thermostate: 0-40
+Jalousi: True/False
+Licht: True/False
+
+Begründung:
+Diese Aufteilung der TopicLevel gibt uns die Möglichkeit über die Wildcards '#' und '+' alle möglichen
+Kombinationen gleichzeitig aufzurufen. Wir können zum Beispiel mit home/+/window/ alle Fenster abonnieren und über
+home/eg/# ganze Stockwerke abonnieren.
+
