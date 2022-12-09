@@ -10,13 +10,13 @@ def print_test(message):
     print(message)
 
 def callback_dict_light(message):
-    print(f'light: {message}')
+    print(f'getmessage: light {message}')
 
 def callback_dict_window(message):
-    print(f'window: {message}')
+    print(f'getmessage: window {message}')
 
 def callback_dict_jalousi(message):
-    print(f'jalousi: {message}')
+    print(f'getmessage: jalousi {message}')
 
 async def main():
 

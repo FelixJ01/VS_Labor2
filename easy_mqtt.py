@@ -21,7 +21,7 @@ class EasyMqtt:
         self.client = client
 
     def on_connect(self, client, flags, rc, properties):
-        print('on_connect')
+        print(f'on_connect {client._client_id}')
 
         # Hier muss jedes Topic, auf welches abonniert werden soll, subscribed werden.
         # Tipp: Überlegen Sie sich, wie Wildcards behandelt werden sollen
@@ -29,19 +29,16 @@ class EasyMqtt:
        # client.subscribe('TEST/#', qos=0)
 
     def on_message(self, client, topic, payload, qos, properties):
-     #   print('on_message')
         if topic in self.callback_dict.keys():
             fun = self.callback_dict[topic]
             fun(str(payload))
-     #   print(f'topic: {topic} payload: {payload}')
-
         # Hier muss die Callback methode für das jeweilige Topic aufgerufen werden
         logging.info('[RECV MSG {}] TOPIC: {} PAYLOAD: {} QOS: {} PROPERTIES: {}'
                      .format(client._client_id, topic, payload, qos, properties))
 
     def on_disconnect(self, client, packet, exc=None):
         logging.info('[DISCONNECTED {}]'.format(client._client_id))
-        print('on_disconnect')
+        print(f'on_disconnect {client._client_id}')
 
 
     def on_subscribe(self, client, mid, qos, properties):
@@ -49,14 +46,17 @@ class EasyMqtt:
         print('on_subscribe')
 
     def send_message(self, topic, message: bytes):
-        print('send_message')
+        print(f'send_message: {str(message)}')
         self.client.publish(topic, str(time.time()), qos=1)
 
     async def connect(self, host):
         await self.client.connect(host)
 
     def publish(self, message_or_topic, payload=None, qos=0):
+        print(f'send_message: {message_or_topic} {str(payload)}')
+
         self.client.publish(message_or_topic, payload, qos)
 
     def subscribe(self, topic, qos):
+        print(f'subscribed to: {topic}')
         self.client.subscribe(topic, qos)
