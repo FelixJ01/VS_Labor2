@@ -9,25 +9,38 @@ import asyncio
 def print_test(message):
     print(message)
 
-async def main(broker_host):
+def callback_dict_light(message):
+    print(f'light: {message}')
+
+def callback_dict_window(message):
+    print(f'window: {message}')
+
+def callback_dict_jalousi(message):
+    print(f'jalousi: {message}')
+
+async def main():
 
     host = 'localhost'
-
     calldict = {
-        'home/og/licht': print_test,
+        'light': callback_dict_light,
+        'window': callback_dict_window,
+        'jalousi': callback_dict_jalousi,
     }
+
     client = MQTTClient("dennis")
+    ec = easy.EasyMqtt(client, calldict)
+    await ec.connect(host)
 
-    easyClient = easy.EasyMqtt(client, calldict)
+    ec.subscribe('light', qos=0)
+    ec.subscribe('window', qos=0)
+    ec.subscribe('jalousi', qos=0)
 
-    client.on_connect = easyClient.on_connect
-    client.on_message = easyClient.on_message
-    client.on_disconnect = easyClient.on_disconnect
-    client.on_subscribe = easyClient.on_subscribe
-    await client.connect(broker_host)
+    while True:
+       # ec.publish('light', str("dunkel"), qos=1)
+       # await asyncio.sleep(2)
+       # ec.publish('light', str("hell"), qos=1)
+        await asyncio.sleep(1)
 
-    client.publish('home/og/licht', str('dunkel'), qos=1)
-    await asyncio.sleep(1)
 
  #   client2 = MQTTClient("dennis")
 
@@ -54,7 +67,6 @@ async def main(broker_host):
 
 
 if __name__ == "__main__":
-    host = 'localhost'
-    asyncio.run((main(host)))
+    asyncio.run((main()))
 
 
