@@ -18,7 +18,7 @@ home/
 
 Wertebereiche:
 Fenster: True/False
-Thermostate: 0-40
+Thermostate: 15-25
 Jalousi: True/False
 Licht: True/False
 
@@ -26,4 +26,9 @@ Begründung:
 Diese Aufteilung der TopicLevel gibt uns die Möglichkeit über die Wildcards '#' und '+' alle möglichen
 Kombinationen gleichzeitig aufzurufen. Wir können zum Beispiel mit home/+/window/ alle Fenster abonnieren und über
 home/eg/# ganze Stockwerke abonnieren.
+
+Eigene Routine:
+Für die "Guten Morgen" Routine wird im Obergeschoss das Licht eingeschalter, die Jalousien geöffnet und die Temperatur auf 22 grad gestellt.
+Die Temperatur wird auf 22 Grad gesetzt, dabei wird geprüft, ob es sich um einen gültigen Wert handelt. Ist er gültig, wird der current_state aktualisiert und der neue Status wieder zurück geben.
+Beim Empfangen der Antwort vom Thermostat wird der Wert zum Key im Thermostat Dictionary und die Input Textbox aktualisiert.
 
