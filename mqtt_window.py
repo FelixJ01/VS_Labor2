@@ -7,7 +7,7 @@ class MqttWindow(MqttAbstract):
     current_state = True
 
     def on_message(self, client, topic, payload, qos, properties):
-        state = "offen" if not self.current_state else "geschlossen"
+        state = "offen" if self.current_state else "geschlossen"
         message = payload.decode()
         msg_json = json.loads(message)
         msg_id = msg_json["id"]
