@@ -36,11 +36,11 @@ def on_message(client: MQTTClient, topic, payload, qos, properties):
     device_dict[key] = msg_value
 
     if "jalousie" in key:
-        win[key].Update(text=returnKontaktJalousi(msg_value))
+        win[key].Update(text=return_state_str(msg_value))
     elif "light" in key:
         win[key].Update(text=get_licht(msg_value))
     elif "window" in key:
-        win[key].Update(returnKontaktJalousi(msg_value))
+        win[key].Update(return_state_str(msg_value))
     else:
         win[key].Update(msg_value)
 
@@ -58,8 +58,8 @@ async def init_client():
     ec.subscribe("home/#", qos=0)
 
 
-def returnKontaktJalousi(val):
-    return "Auf" if val else "zu"
+def return_state_str(val):
+    return "Offen" if val else "Geschlossen"
 
 
 def get_licht(val):
@@ -82,21 +82,21 @@ layout = [
     [sg.Text('Erdgeschoss', size=(size,height), background_color="blue")],
     [sg.Text('Thermostat', size=(size,height)), sg.InputText("20", key="eg_1_thermo", size=(size + 1, height)),
      sg.Button("OK", key="eg_thermo_1_button", size=(size, height))],
-    [sg.Text('Fenster 1', size=(size,height)), sg.Text(returnKontaktJalousi(device_dict["eg_1_window"]), key='eg_1_window', size=(size,height)),
+    [sg.Text('Fenster 1', size=(size,height)), sg.Text(return_state_str(device_dict["eg_1_window"]), key='eg_1_window', size=(size, height)),
      sg.Button("get status", key="eg_fenster_1_button", size=(size, height))],
-    [sg.Text('Fenster 2', size=(size,height)), sg.Text(returnKontaktJalousi(device_dict["eg_2_window"]), key='eg_2_window', size=(size,height)),
+    [sg.Text('Fenster 2', size=(size,height)), sg.Text(return_state_str(device_dict["eg_2_window"]), key='eg_2_window', size=(size, height)),
      sg.Button("get status", key="eg_fenster_2_button", size=(size, height))],
-    [sg.Text('Jalousie', size=(size,height)), sg.Button(returnKontaktJalousi(device_dict["eg_1_jalousie"], ), key="eg_1_jalousie", size=(size,height))],
+    [sg.Text('Jalousie', size=(size,height)), sg.Button(return_state_str(device_dict["eg_1_jalousie"], ), key="eg_1_jalousie", size=(size, height))],
     [sg.Text('Licht', size=(size,height)), sg.Button(get_licht(device_dict["eg_1_light"], ), key="eg_1_light", size=(size,height))],
     [],
     [sg.Text('Obergeschoss', size=(size, height), background_color="blue")],
     [sg.Text('Thermostat', size=(size,height)), sg.InputText("20", key="og_1_thermo", size=(size + 1, height)),
      sg.Button("OK", key="og_thermo_1_button", size=(size,height))],
-    [sg.Text('Fenster 1', size=(size,height)), sg.Text(returnKontaktJalousi(device_dict["og_1_window"]), key='og_1_window', size=(size,height)),
+    [sg.Text('Fenster 1', size=(size,height)), sg.Text(return_state_str(device_dict["og_1_window"]), key='og_1_window', size=(size, height)),
      sg.Button("get status", key="og_fenster_1_button", size=(size,height))],
-    [sg.Text('Fenster 2', size=(size,height)), sg.Text(returnKontaktJalousi(device_dict["og_2_window"]), key='og_2_window', size=(size,height)),
+    [sg.Text('Fenster 2', size=(size,height)), sg.Text(return_state_str(device_dict["og_2_window"]), key='og_2_window', size=(size, height)),
      sg.Button("get status", key="og_fenster_2_button", size=(size,height))],
-    [sg.Text('Jalousie', size=(size,height)), sg.Text("", size=(size,height), visible=False, expand_x=True), sg.Button(returnKontaktJalousi(device_dict["og_1_jalousie"], ), key="og_1_jalousie", size=(size,height))],
+    [sg.Text('Jalousie', size=(size,height)), sg.Text("", size=(size,height), visible=False, expand_x=True), sg.Button(return_state_str(device_dict["og_1_jalousie"], ), key="og_1_jalousie", size=(size, height))],
     [sg.Text('Licht', size=(size,height)), sg.Button(get_licht(device_dict["og_1_light"]), key="og_1_light", size=(size,height))],
     [sg.Text("", size=(size,height), visible=False, expand_x=True,expand_y=True)],
     [],
@@ -159,7 +159,7 @@ async def main_window():
     global ec, win
 
     sg.theme("Dark")
-    window = sg.Window('Overview', layout, size=(400, 500))
+    window = sg.Window('Overview', layout, size=(330, 480))
     win = window
     while True:
         window.refresh()

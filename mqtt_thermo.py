@@ -1,6 +1,7 @@
 from mqtt_abstract import MqttAbstract
 import json
 
+
 class MqttThermo(MqttAbstract):
 
     current_state = "20"
