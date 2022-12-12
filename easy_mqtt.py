@@ -32,5 +32,4 @@ class EasyMqtt:
         self.client.publish(message_or_topic, payload, qos)
 
     def subscribe(self, topic, qos):
-       ## print(f'subscribed to: {topic}')
         self.client.subscribe(topic, qos, no_local=True)
