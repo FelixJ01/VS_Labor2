@@ -28,7 +28,7 @@ Kombinationen gleichzeitig aufzurufen. Wir können zum Beispiel mit home/+/windo
 home/eg/# ganze Stockwerke abonnieren.
 
 Eigene Routine:
-Für die "Guten Morgen" Routine wird im Obergeschoss das Licht eingeschalter, die Jalousien geöffnet und die Temperatur auf 22 grad gestellt.
-Die Temperatur wird auf 22 Grad gesetzt, dabei wird geprüft, ob es sich um einen gültigen Wert handelt. Ist er gültig, wird der current_state aktualisiert und der neue Status wieder zurück geben.
+Für die "Guten Morgen" Routine wird im Obergeschoss das Licht eingeschaltet, die Jalousien geöffnet und die Temperatur auf 22 Grad gestellt.
+Beim Setzen der Temperatur wird geprüft, ob es sich bei den 22 Grad um einen gültigen Wert handelt. Ist er gültig, wird der current_state aktualisiert und der neue Status wieder zurückgegeben.
 Beim Empfangen der Antwort vom Thermostat wird der Wert zum Key im Thermostat Dictionary und die Input Textbox aktualisiert.
 
