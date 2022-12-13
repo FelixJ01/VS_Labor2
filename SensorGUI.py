@@ -4,6 +4,7 @@ from gmqtt import Client as MQTTClient
 import easy_mqtt as easy
 import asyncio
 import json
+import sys
 
 ec: easy.EasyMqtt
 win: PySimpleGUI.PySimpleGUI.Window
@@ -206,4 +207,5 @@ async def main_window():
             send_message("og", "light", 1, not device_dict[event])
         await asyncio.sleep(0.1)
 
+    sys.exit(1)
     window.close()

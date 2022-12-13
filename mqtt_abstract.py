@@ -1,3 +1,5 @@
+from abc import abstractmethod
+
 from gmqtt import Client as MQTTClient
 import easy_mqtt as easy
 import asyncio
@@ -16,6 +18,7 @@ class MqttAbstract:
         }
         return json.dumps(data)
 
+    @abstractmethod
     def on_message(self, client: MQTTClient, topic, payload, qos, properties):
         message = payload.decode()
         msg_json = json.loads(message)
